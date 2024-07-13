@@ -7,6 +7,7 @@ export const config = {
     "userInfo": "userInfo",
     // 登录后保存的用户token的session key
     "userToken": "userToken",
+    "userUid": "userUid",
     // 用户登录后的时间戳
     "userLoginTimestamp": "userLoginTimestamp",
 }
