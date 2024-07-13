@@ -10,6 +10,7 @@
 
 <div class="bg">
 <div style="display: flex; justify-content: flex-end;">
+  <br>
 <a-button type="primary" @click="showDrawer">历史记录</a-button>
       <a-drawer :width="500" title="历史记录" :placement="placement" :open="open" @close="onClose">
         <template #extra>
@@ -144,26 +145,9 @@
     </div>
     <!-- 分割线 -->
     <hr style="width:80%">
-    <!-- 导出按钮
-    <a-button type="primary" class="exportbtn" @click="exportToExcel">导出为excel</a-button> -->
-
     <!-- 输入框 -->
         <br />
         <br />
-        
-
-      <div  style="display: flex; justify-content: center;">
-        <a-textarea v-model:value="text" placeholder="请在此输入要生成的内容" :rows="4" style="width: 70% ;"/>
-        <a-form-item class="submitButton">
-            <a-button type="primary" html-type="submit" @click="send(text)">发送</a-button>
-        </a-form-item>
-        <!-- <a-form-item class="submitButton">
-            <a-button type="primary" html-type="submit" @click="getHistory">ceshi1</a-button>
-        </a-form-item> -->
-         </div>
-         <br />
-        <br />
-        
         <div style="display: flex; justify-content: center;">
     
           <!-- 加载框 :spinning="spinning" -->
@@ -176,9 +160,21 @@
         </div>
         <div style="display: flex; justify-content: center;">
        <a-form-item class="submitButton" >
+        <br />
+
             <a-button type="primary" html-type="submit" @click="confirm(text)">保存</a-button>
       </a-form-item>
-       </div>
+       </div>     
+
+       <div  style="display: flex; justify-content: center;">
+        <a-textarea v-model:value="text" placeholder="请在此输入要生成的内容" :rows="4" style="width: 70% ;"/>
+        <a-form-item class="submitButton" style="margin-left: 10px; margin-top: 25px;">
+            <a-button type="primary" html-type="submit" @click="send(text)" >发送</a-button>
+        </a-form-item>
+        <!-- <a-form-item class="submitButton">
+            <a-button type="primary" html-type="submit" @click="getHistory">ceshi1</a-button>
+        </a-form-item> -->
+         </div>
       </div>
       
 </template>
@@ -200,7 +196,7 @@ const handleOk = e => {
 };
 
 //历史记录详情
-const historydetail = ref({content:'111111',detail:'22222222'});
+const historydetail = ref({content:'',detail:''});
   
 
 
@@ -231,7 +227,7 @@ const onClose = () => {
 //日期选择按钮样式
 const size = ref('large');
 const selectedButton = ref('month');//默认按钮为“月”
-const activeColor = ref('green');
+const activeColor = ref('#1168C8');
 const inactiveColor = ref('black');
 
 //绑定handleButtonClick和selectedButton的值

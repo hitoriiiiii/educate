@@ -184,7 +184,7 @@ onMounted(() => {
   background-color: #c2ddfd;
   margin:0 auto;
   margin-top: 30px;
-  box-shadow:2px 2px 5px #535252;
+  box-shadow:2px 2px 5px #fff;
   .content{
     width: 100%;
     height:400px;
@@ -201,14 +201,14 @@ onMounted(() => {
       .input{
           color:rgba(0, 0, 0, 0.88);
           font-family: '思源宋体', '宋体', Arial, Helvetica, sans-serif;
-          background-color: #0f60c2;
+          background-color: #fff;
           border-radius: 6px;
           font-size: 19px;
       }
       .cinput{
         color:rgba(0, 0, 0, 0.88);
         font-family: '思源宋体', '宋体', Arial, Helvetica, sans-serif;
-        background-color:#1e4b81;
+        background-color:#fff;
         border-radius: 6px;
         font-size: 19px;
       }

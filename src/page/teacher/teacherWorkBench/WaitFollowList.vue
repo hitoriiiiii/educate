@@ -134,52 +134,81 @@ const dataSource = ref([]);
 
 // 获取评价列表
 const getFollowList = () => {
-  // getFollowListApi().then(res => {
-  //   if(res.data.code === 200){
-  //       for (let i = 0; i < res.data.data.rows.length; i++) {
-  //         dataSource.value.push(
-  //           {
-  //             id: res.data.data.rows[i].studentCode,
-  //             name: res.data.data.rows[i].studentName,
-  //             sex: res.data.data.rows[i].gender,
-  //             age: res.data.data.rows[i].age,
-  //             tel: res.data.data.rows[i].phonenumber,
-  //             group: res.data.data.rows[i].cancerName,
-  //             deadline: res.data.data.rows[i].latestFollowDue,
-  //             todeadline: res.data.data.rows[i].days,
-  //             remark: res.data.data.rows[i].note,
-  //             status: res.data.data.rows[i].followUpSituation,
-  //             operation: "操作",
-  //           }
-  //         );
-  //       }
-  //   }else{
-  //     message.error("获取失败！" + res.data.msg)
-  //   }
-  //   }).catch((err) => {
-  //     console.log(err)
-  // })
-  const genders = ['男', '女'];
+//   // getFollowListApi().then(res => {
+//   //   if(res.data.code === 200){
+//   //       for (let i = 0; i < res.data.data.rows.length; i++) {
+//   //         dataSource.value.push(
+//   //           {
+//   //             id: res.data.data.rows[i].studentCode,
+//   //             name: res.data.data.rows[i].studentName,
+//   //             sex: res.data.data.rows[i].gender,
+//   //             age: res.data.data.rows[i].age,
+//   //             tel: res.data.data.rows[i].phonenumber,
+//   //             group: res.data.data.rows[i].cancerName,
+//   //             deadline: res.data.data.rows[i].latestFollowDue,
+//   //             todeadline: res.data.data.rows[i].days,
+//   //             remark: res.data.data.rows[i].note,
+//   //             status: res.data.data.rows[i].followUpSituation,
+//   //             operation: "操作",
+//   //           }
+//   //         );
+//   //       }
+//   //   }else{
+//   //     message.error("获取失败！" + res.data.msg)
+//   //   }
+//   //   }).catch((err) => {
+//   //     console.log(err)
+//   // })
+//   const genders = ['男', '女'];
 
-  for (let i = 0; i < 35; i++) {
-          dataSource.value.push(
-            {
-              id: i,
-              name: "name"+i,
-              sex: genders[Math.floor(Math.random() * genders.length)],
-              age: Math.floor(Math.random() * 20) + 1,
-              tel: '1300000000' + (Math.floor(Math.random() * 10000000) + 1),
-              group: "chinese",
-              deadline: "2024-06-18",
-              todeadline: 8,
-              remark:"XX",
-              status: "未评价",
-              operation: "操作",
-            }
-          );
-        }
+//   for (let i = 0; i < 35; i++) {
+//           dataSource.value.push(
+//             {
+//               id: i,
+//               name: "name"+i,
+//               sex: genders[Math.floor(Math.random() * genders.length)],
+//               age: Math.floor(Math.random() * 20) + 1,
+//               tel: '1300000000' + (Math.floor(Math.random() * 10000000) + 1),
+//               group: "chinese",
+//               deadline: "2024-06-18",
+//               todeadline: 8,
+//               remark:"XX",
+//               status: "未评价",
+//               operation: "操作",
+//             }
+//           );
+//         }
+
+const classId = ref(1101)
+
+getFollowListApi(classId.value).then(res => {
+    console.log(res)
+    if(res.data.success === true){
+      for (let i = 0; i < res.data.data.length; i++) {
+        dataSource.value.push(
+          {
+            id: res.data.data[i].uid,
+            name: res.data.data[i].name,
+            sex: `${i%3===0?'女':'男'}`,
+            age: res.data.data[i].age,
+            tel: res.data.data[i].email,
+            group: res.data.data[i].class_id,
+            remark:  Math.floor(Math.random() * (100 - 60 + 1)) + 60,
+            status: `${i%4===0?'未评价':'已评价'}`,
+            nickname:res.data.data[i].nickname,
+            operation: "操作",
+          }
+        );
+        // console.log('++++++'+data)
+      }
+    }else{
+      message.error("获取失败！" + res.data.msg)
+    }
+    }).catch((err) => {
+      console.log(err)
+  })
+
 }
-
 // 跳转到评价详情页
 const jumpToFollowDetail = () => {
   router.push({
@@ -214,7 +243,7 @@ onMounted(() => {
 }
 // 设置表头背景色为绿色
 :deep(.ant-table-thead) > tr > th {
-  background: #d3ded8 !important;
+  background: #c2ddfd !important;
 }
 </style>
 @/api/teacher/teacherWorkbench

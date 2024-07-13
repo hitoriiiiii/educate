@@ -46,7 +46,7 @@
                             </router-link>
                         </span> -->
                         <span v-else @click="jumpToDetail(record)">
-                            <span style="color: #368467; font-weight: 500; cursor: pointer">去评价</span>
+                            <span style="color: #5470C6; font-weight: 500; cursor: pointer">去评价</span>
                         </span>
 
                     </template>

@@ -45,7 +45,7 @@ onMounted(() => {
 
 <style lang="less" scoped>
 .nowFollowInfo{
-    background: linear-gradient(to bottom, #388B7C 20%, #B2DFDB 80%);
+    background: linear-gradient(to bottom, #64b8f9 20%, #c2ddfd 80%);
     box-shadow: 3px 3px 11px rgba(0, 0, 0, 0.2);
     width: 100%;
     height: 100%;
