@@ -11,7 +11,7 @@
 <div class="bg">
 <div style="display: flex; justify-content: flex-end;">
   <br>
-<a-button type="primary" @click="showDrawer">历史记录</a-button>
+<a-button type="primary" @click="showDrawer" style="margin-top: 10px; margin-right: 10px;">历史记录</a-button>
       <a-drawer :width="500" title="历史记录" :placement="placement" :open="open" @close="onClose">
         <template #extra>
           <a-button style="margin-right: 8px" @click="onClose">取消</a-button>
@@ -22,7 +22,10 @@
           <!-- 历史记录列表 -->
         <a-list size="large" :data-source="history">
         <template #renderItem="{ item }">
-          <a-list-item>{{ item.content }}
+          <a-list-item>
+            {{ item.content}}
+                time：
+            {{ item.time.substring(0, 10) }}
             <template #extra>
               <a-button style="margin-right: 8px" @click="getHistoryDetail(item.index)">查看</a-button>
             </template>
@@ -156,7 +159,7 @@
           </div>
         <div  style="display: flex; justify-content: center;">
           
-          <a-textarea :rows="20" v-model:value="answer" placeholder="这里显示生成结果，您可以进行相应修改" style="width: 90% ;" />
+          <a-textarea :rows="16" v-model:value="answer" placeholder="这里显示生成结果，您可以进行相应修改" style="width: 90% ;" />
         </div>
         <div style="display: flex; justify-content: center;">
        <a-form-item class="submitButton" >
@@ -167,8 +170,8 @@
        </div>     
 
        <div  style="display: flex; justify-content: center;">
-        <a-textarea v-model:value="text" placeholder="请在此输入要生成的内容" :rows="4" style="width: 70% ;"/>
-        <a-form-item class="submitButton" style="margin-left: 10px; margin-top: 25px;">
+        <a-textarea v-model:value="text" placeholder="请在此输入要生成的内容" :rows="5" style="width: 80% ;"/>
+        <a-form-item class="submitButton" style="margin-left: 10px; margin-top: 40px;">
             <a-button type="primary" html-type="submit" @click="send(text)" >发送</a-button>
         </a-form-item>
         <!-- <a-form-item class="submitButton">
@@ -298,6 +301,7 @@ const viewHistory = (index) =>{
             for (let i = 0; i < res.data.data.length; i++) {
             history.value.push(
               {
+                time: res.data.data[i].end_time,
                 content: res.data.data[i].content,
                 index: res.data.data[i].dialogue_id,
               }

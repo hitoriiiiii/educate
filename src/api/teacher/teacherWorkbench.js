@@ -5,9 +5,16 @@ import { config } from "@/config/config";
 // 教师个人信息查询
 const getTeacherInfoApi = () => new Promise((resolve, reject) => {
     let token = localStorage.getItem(config.userToken)
+    let uid = localStorage.getItem(config.userUid)
+    let url = config.url + 'api/' + uid + '?uid=' + uid +'&token='+token
+    console.log(url)
+    // http://127.0.0.1:42878/api/
+    // {{uid}}
+    // ?uid=601
+    // &token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlYWNoZXJyIiwidWlkIjo2MDEsImV4cCI6MTcyMDk3NjE4MCwibmJmIjoxNzIwODg4OTgwfQ.agCYD25q977F_K1n3ult9lSwXMc_sVr-tXLm7wLZunY
     axios({
         method: "get",
-        url: '/api/teacher/detail',
+        url:url,
         headers: {
             "Content-Type": "application/json",
             "token": token,
@@ -20,12 +27,12 @@ const getTeacherInfoApi = () => new Promise((resolve, reject) => {
     })
 })
 
-// 获取本周随访任务（教师主页）
+// 获取列表（教师主页）
 const getTodayInfoApi = () => new Promise((resolve, reject) => {   
     let token = localStorage.getItem(config.userToken)
     axios({
         method: "get",
-        url: '/api/select/weekFollowUpTask',
+        url: config.url + 'select/weekFollowUpTask',
         headers: {
             "Content-Type": "application/json",
             "token": token,
@@ -44,7 +51,7 @@ const getMonthInfoApi = () => new Promise((resolve, reject) => {
     let token = localStorage.getItem(config.userToken)
     axios({
         method: "post",
-        url: '/api/select/statisticians',
+        url: config.url +  'select/statisticians',
         headers: {
             "Content-Type": "application/json",
             "token": token,
@@ -58,30 +65,9 @@ const getMonthInfoApi = () => new Promise((resolve, reject) => {
     })
 })
 
-// 获取逾期未随访（教师主页）
-const getLateFollowApi = (startDate,endDate, keyWord) => new Promise((resolve, reject) => {
-    let token = localStorage.getItem(config.userToken)
-    let data = {
-        startdate:startDate,
-        enddate:endDate
-    }
-    axios({
-        method: "post",
-        url: `/api/select/overdueFollowTask?keyWord=${keyWord}`,
-        headers: {
-            "Content-Type": "application/json",
-            "token": token,
-        },
-        data: JSON.stringify(data)
-    }).then((response) => {
-        resolve(response)
-    }).catch((error) => {
-        console.log(error)
-        reject(error.response);
-    })
-})
 
-// 获取临期随访数（教师主页）
+
+// 获取评价信息
 const getFollowNoticeApi = (startDate,endDate, keyWord) => new Promise((resolve, reject) => {
     let token = localStorage.getItem(config.userToken)
     let data = {
@@ -90,7 +76,7 @@ const getFollowNoticeApi = (startDate,endDate, keyWord) => new Promise((resolve,
     }
     axios({
         method: "post",
-        url: `/api/select/clinicalFollowTask?keyWord=${keyWord}`,
+        url: config.url + `select/clinicalFollowTask?keyWord=${keyWord}`,
         headers: {
             "Content-Type": "application/json",
             "token": token,
@@ -116,7 +102,7 @@ const getFollowListApi = (classId) => new Promise((resolve, reject) => {
     // &token=
     // eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlYWNoZXIiLCJ1aWQiOjQwNywiZXhwIjoxNzIwNzU0MjM4LCJuYmYiOjE3MjA2NjcwMzh9.ifNldh51a3QE5CYrKiGCQ_L42CM0PCdz3edWgiMeEDM
     // &page=0
-    let url = 'api/api/class/' + uid + '/students?class_id='+ data + '&token=' + token;
+    let url = config.url + 'api/class/' + uid + '/students?class_id='+ data + '&token=' + token;
     console.log(url)
     axios({
         method: "get",
@@ -137,7 +123,6 @@ export {
     getTeacherInfoApi,
     getTodayInfoApi,
     getMonthInfoApi,
-    getLateFollowApi,
     getFollowNoticeApi,
     getFollowListApi,
 }

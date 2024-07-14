@@ -11,7 +11,7 @@ const loginApi = (loginForm) => new Promise((resolve, reject) => {
     console.log(JSON.stringify(data))
     axios({
         method: "post",
-        url: 'api/api/login',
+        url: config.url + 'api/login',
         headers: {
             "Content-Type": "application/json",
         },
@@ -29,7 +29,7 @@ const registerApi = (account) => new Promise((resolve, reject) => {
     // http://127.0.0.1:42878/api/register
     axios({
         method: "post",
-        url: 'api/api/register',
+        url: config.url + 'api/register',
         headers: {
             "Content-Type": "application/json",
         },

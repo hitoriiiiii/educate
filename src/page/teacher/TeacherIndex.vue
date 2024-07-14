@@ -10,7 +10,7 @@
             <div class="topsecond">
                 <MonthExecuteInfo ></MonthExecuteInfo>
             </div>
-            <!-- 消息通知 -->
+            <!-- 指导 -->
             <div class="topthird">
                 <NewsNotice ></NewsNotice>
             </div>

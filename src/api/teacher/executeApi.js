@@ -14,7 +14,7 @@ const executeApi = (dialogue) => new Promise((resolve, reject) =>{
     const uid = localStorage.getItem(config.userUid)
     let token = localStorage.getItem(config.userToken)
     // let url='api/api/dialog/{{uid}}/post_dialogues?token={{token}}&type=0&teacher_id={{uid}}'
-    let url = 'api/api/dialog/' + uid + '/post_dialogues?token=' + token + '&type=0&teacher_id=' + uid;
+    let url = config.url + 'api/dialog/' + uid + '/post_dialogues?token=' + token + '&type=0&teacher_id=' + uid;
     console.log(url)
     console.log(data)
     axios({
@@ -45,7 +45,7 @@ const postApi = (dialogue,id) => new Promise((resolve, reject) =>{
     let token = localStorage.getItem(config.userToken)
     // let url = 'api/api/dialog/' + uid + '/post_dialogues?token=' + token + '&type=0&teacher_id=' + uid;
     // let url='api/api/dialog/{{uid}}/post_dialogues?token={{token}}&type=0&teacher_id={{uid}}'
-    let url = 'http://127.0.0.1:42878/api/dialog/' + uid + '/post_dialogues?token=' + token + '&type=1&teacher_id=' + uid +'&student_id=' + id;
+    let url = config.url + 'api/dialog/' + uid + '/post_dialogues?token=' + token + '&type=1&teacher_id=' + uid +'&student_id=' + id;
     console.log(url)
     console.log(data)
     axios({
@@ -75,7 +75,7 @@ const poscApi = (dialogue,id) => new Promise((resolve, reject) =>{
     let token = localStorage.getItem(config.userToken)
     // let url = 'api/api/dialog/' + uid + '/post_dialogues?token=' + token + '&type=0&teacher_id=' + uid;
     // let url='api/api/dialog/{{uid}}/post_dialogues?token={{token}}&type=0&teacher_id={{uid}}'
-    let url = 'http://127.0.0.1:42878/api/dialog/' + uid + '/post_dialogues?token=' + token + '&type=2&teacher_id=' + uid +'&student_id=' + id;
+    let url = config.url +  'api/dialog/' + uid + '/post_dialogues?token=' + token + '&type=2&teacher_id=' + uid +'&student_id=' + id;
     console.log(url)
     console.log(data)
     axios({
@@ -104,7 +104,7 @@ const detailApi = (historyindex) => new Promise((resolve, reject) =>{
     // &dialogue_id=1501
     let uid = localStorage.getItem(config.userUid)
     let token = localStorage.getItem(config.userToken)
-    let url = 'api/api/dialog/' + uid + '/get_dialogue_detial?token=' + token + '&dialogue_id=' + index;
+    let url = config.url +  'api/dialog/' + uid + '/get_dialogue_detial?token=' + token + '&dialogue_id=' + index;
     // let url = 'api/api/dialog/' + uid + '/post_dialogues?token=' + token + '&type=0&teacher_id=' + uid;
     console.log(url)
     axios({
@@ -132,7 +132,7 @@ const historyApi = () => new Promise((resolve, reject) =>{
     // eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlYWNoZXJyIiwidWlkIjo2MDEsImV4cCI6MTcyMDY2MzEyOSwibmJmIjoxNzIwNTc1OTI5fQ.ekeAnLEJCctpRjnoYdy_68v1GcPRW87R6He3yBG9b0k
     // &student_id=601
     // &type=0
-    let url = 'api/api/dialog/' + uid + '/get_dialogues?token=' + token +'&student_id='+ uid + '&type=0';
+    let url = config.url +  'api/dialog/' + uid + '/get_dialogues?token=' + token +'&student_id='+ uid + '&type=0';
     // console.log(uid,token)
     axios({
         method:'get',

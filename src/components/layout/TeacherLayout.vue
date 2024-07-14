@@ -20,7 +20,7 @@
                             <a-avatar class="user-avatar">
                                 <template #icon><UserOutlined /></template>
                             </a-avatar>
-                            xxx教师
+                            {{name}}
                         </div>
                     </div>
                 </a-layout-header>
@@ -36,6 +36,30 @@
 import TeacherNavi from '../navi/TeacherNavi.vue'
 import { UserOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router';
+import {getTeacherInfoApi} from '@/api/teacher/teacherWorkbench'
+import {ref ,onMounted} from "vue"
+
+const name = ref('')
+
+const getTeacherInfo = () => {
+  getTeacherInfoApi().then(res => {
+    console.log(res)
+    if(res.data.success === true){
+    name.value = res.data.data[0].name;
+
+    }else{
+      message.error("获取失败！" + res.data.msg)
+    }
+    }).catch((err) => {
+      console.log(err)
+  })
+}
+
+onMounted(() => {
+  getTeacherInfo()
+
+})
+
 
 const router = useRouter()
 // 跳转到“个人中心”页面

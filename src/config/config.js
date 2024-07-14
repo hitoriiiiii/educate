@@ -10,4 +10,5 @@ export const config = {
     "userUid": "userUid",
     // 用户登录后的时间戳
     "userLoginTimestamp": "userLoginTimestamp",
+    "url": "http://127.0.0.1:42878/"
 }

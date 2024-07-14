@@ -27,7 +27,7 @@
               <a-select-option value="female">女</a-select-option>
             </a-select>
           </a-form-item>
-          <a-form-item label="联系方式" v-bind="validateInfos.phone">
+          <a-form-item label="邮箱" v-bind="validateInfos.phone">
             <a-input
             class="cinput"
             v-model:value="formState.phone" />
@@ -49,7 +49,6 @@ import {ref, reactive,toRaw, onMounted} from "vue"
 import { Form } from 'ant-design-vue';
 import { useRouter } from 'vue-router';
 import { getTeacherInfoApi } from '@/api/teacher/teacherWorkbench'
-import { getLateFollowApi, getFollowNoticeApi } from '@/api/teacher/teacherWorkbench'
 import { message } from 'ant-design-vue'
 
 const useForm = Form.useForm;
@@ -57,25 +56,23 @@ const useForm = Form.useForm;
 const formState = reactive({
   // layout: 'horizontal',
   username: 'user3',
-  name:'阿依古丽',
+  name:'teacher',
   sex:'女',
-  phone:'12345678900',
-  department:'外科',
+  email:'12345678900',
+  department:'信软学院',
   role:'教师',
 });
 
 // 调用接口查询教师信息
 const getTeacherInfo = () => {
   getTeacherInfoApi().then(res => {
-    if(res.data.code === 200){
-      formState.username = res.data.data.username;
-      formState.name = res.data.data.name;
-      formState.sex = res.data.data.gender;
-      formState.phone = res.data.data.phoneNumber;
-      formState.department = res.data.data.department;
-      formState.role = res.data.data.role
+    console.log(res)
+    if(res.data.success === true){
+      formState.username = res.data.data[0].nickname;
+      formState.name = res.data.data[0].name;
+      formState.phone = res.data.data[0].email;
     }else{
-      message.error("登录失败！" + res.data.msg)
+      message.error("获取失败！" + res.data.msg)
     }
     }).catch((err) => {
       console.log(err)
@@ -217,7 +214,8 @@ onMounted(() => {
           border-radius: 6px;
           height: auto;
           margin-left: 300px;
-          margin-top:15px
+          margin-top:15px;
+          background-color:#3651aa;
       }
     }
   }

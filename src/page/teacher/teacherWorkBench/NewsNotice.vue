@@ -14,9 +14,9 @@
             <!-- 生成记录 -->
             <div class="abnormalInfo lateNoFollow">
                 <div class="subTitle">生成记录</div>
-                <div class="subContent" v-for="(item) in lateNoFollow" :key="item.id" :value="item.id">
-                    {{item.id}} - {{item.name}} - {{item.sickness}}
-                    <span :style="{color: '#D11212'}">点击查看</span>
+                <div class="subContent" v-for="(item) in history" :key="item.id" :value="item.id">
+                    {{item.id}} - {{item.content}} - {{item.time.substring(0, 10)}}
+                    <!-- <span :style="{color: '#D11212'}">点击查看</span> -->
                 </div>
             </div>
             <!-- 日程提醒 -->
@@ -34,7 +34,7 @@
 <script setup>
 import {ref, onMounted} from "vue"
 import { SoundOutlined, FullscreenOutlined } from '@ant-design/icons-vue'
-import { getLateFollowApi, getFollowNoticeApi } from '@/api/teacher/teacherWorkbench'
+import { historyApi } from '@/api/teacher/executeApi'
 import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 
@@ -44,8 +44,30 @@ const jumpToNotifications = () => {
     router.push({path: '/teacherExecute'})
 }
 
-const lateNoFollow = ref([])  // 本周逾期未批改的前三条信息
-const followNotice = ref(null)  // 本周临期批改数
+const history = ref([])  // 
+const followNotice = ref(null)  // 
+
+const getHistory = () =>{
+        historyApi().then((res)=>{
+          console.log('调用接口',res)
+          if(res.data.success === true){
+            console.log(res)
+            for (let i = 0; i < 3; i++) {
+            history.value.push(
+              {
+                time: res.data.data[i].end_time,
+                content: res.data.data[i].content,
+                id:i
+              }
+            );
+           }
+           console.log('+++++++++++++'+history.value[0].time)
+          }else{
+            console.log('失败'+res.data.code)
+          }
+        })
+      }
+
 // 调用接口，获取“逾期未批改信息”
 const getLateNoFollow = () => {
 //     getLateFollowApi().then(res => {
@@ -65,17 +87,17 @@ const getLateNoFollow = () => {
 //     }).catch((err) => {
 //       console.log(err)
 //   })
-        for(let i=0; i<3; i++) {
-                        lateNoFollow.value.push(
-                            {
-                                id:i,
-                                name:"mynameis "+i,
-                                sickness:"chinese",
-                            }
-                        )
-                    }
+//         for(let i=0; i<3; i++) {
+//                         lateNoFollow.value.push(
+//                             {
+//                                 id:i,
+//                                 name:"mynameis "+i,
+//                                 class:"chinese",
+//                             }
+//                         )
+//                     }
 }
-// 调用接口，获取“临期批改数量”
+// 调用接口，获取“历史”
 const getFollowNotice = () => {
     followNotice.value = 6
 //      getFollowNoticeApi().then(res => {
@@ -91,8 +113,8 @@ const getFollowNotice = () => {
 
 }
 onMounted(() => {
-    getLateNoFollow()
     getFollowNotice()
+    getHistory()
 })
 </script>
 

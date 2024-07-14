@@ -80,7 +80,7 @@
     width: 750px;
     height: 550px;
     border-radius: 20px;
-    background-color: #c1ddd8;
+    background-color: #c2ddfd;
     margin:0 auto;
     margin-top: 30px;
     box-shadow:2px 2px 5px #535252;
@@ -107,7 +107,8 @@
             border-radius: 6px;
             height: auto;
             margin-left: 85px;
-            margin-top:80px
+            margin-top:80px;
+            background-color:#3651aa;
         }
       }
     }
